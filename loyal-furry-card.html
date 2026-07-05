@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Loyal · Furry ID Card</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #0a0712;
+    --card-bg-1: #1c1329;
+    --card-bg-2: #0e0a17;
+    --neon: #a855f7;
+    --neon-soft: rgba(168,85,247,0.35);
+    --neon-faint: rgba(168,85,247,0.12);
+    --pink: #ff6fb0;
+    --pink-soft: rgba(255,111,176,0.25);
+    --text-main: #f2ecff;
+    --text-muted: #a996c4;
+    --divider: rgba(168,85,247,0.28);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(168,85,247,0.08), transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(255,111,176,0.06), transparent 55%),
+      var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 16px;
+    font-family:'Quicksand', sans-serif;
+  }
+
+  .card{
+    position:relative;
+    width:340px;
+    background: linear-gradient(165deg, var(--card-bg-1), var(--card-bg-2));
+    border-radius:26px;
+    border:1.5px solid var(--neon);
+    padding:38px 26px 28px;
+    color:var(--text-main);
+    text-align:center;
+    box-shadow:
+      0 0 10px var(--neon-soft),
+      0 0 26px var(--neon-faint),
+      0 20px 40px rgba(0,0,0,0.5);
+    animation: breathe 7s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ animation:none; }
+  }
+
+  @keyframes breathe{
+    0%,100%{ box-shadow: 0 0 10px var(--neon-soft), 0 0 26px var(--neon-faint), 0 20px 40px rgba(0,0,0,0.5); }
+    50%{ box-shadow: 0 0 16px var(--neon-soft), 0 0 34px var(--neon-faint), 0 20px 40px rgba(0,0,0,0.5); }
+  }
+
+  /* Tag ring — like a pet ID tag clip */
+  .tag-ring{
+    position:absolute;
+    top:-16px;
+    left:50%;
+    transform:translateX(-50%);
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:4px solid var(--card-bg-2);
+    background:transparent;
+    box-shadow: 0 0 0 2px var(--neon-soft);
+  }
+  .tag-ring::after{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border-radius:50%;
+    background: var(--bg);
+    border:2px solid var(--neon);
+  }
+
+  .photo-wrap{
+    width:118px;
+    height:118px;
+    margin:8px auto 16px;
+    border-radius:50%;
+    padding:4px;
+    background: conic-gradient(from 180deg, var(--neon), var(--pink), var(--neon));
+    cursor:pointer;
+  }
+  .photo-inner{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    overflow:hidden;
+    background:#241a33;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .photo-inner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .photo-hint{
+    font-size:11px;
+    color:var(--text-muted);
+    margin-top:-10px;
+    margin-bottom:14px;
+    letter-spacing:0.02em;
+  }
+
+  .name{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:32px;
+    letter-spacing:0.02em;
+    background: linear-gradient(90deg, var(--neon), var(--pink));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    margin:0;
+  }
+
+  .subline{
+    font-size:13.5px;
+    color:var(--text-muted);
+    margin-top:6px;
+    font-weight:600;
+  }
+  .subline .dot{ color:var(--neon); margin:0 6px; }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:20px 0;
+    color:var(--neon);
+    font-size:13px;
+  }
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: var(--divider);
+  }
+
+  .bio{
+    font-size:14px;
+    line-height:1.55;
+    color:var(--text-main);
+    font-style:italic;
+    padding:0 4px;
+  }
+
+  .badges{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    margin-top:6px;
+  }
+  .badge{
+    font-size:12.5px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:999px;
+    border:1px solid var(--neon-soft);
+    background: rgba(168,85,247,0.08);
+    color:var(--text-main);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .socials{
+    margin-top:6px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .social-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background: rgba(255,255,255,0.03);
+    border:1px solid rgba(168,85,247,0.18);
+    border-radius:12px;
+    padding:8px 12px;
+    text-align:left;
+  }
+  .social-row svg{ flex-shrink:0; width:18px; height:18px; }
+  .social-row .platform{
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--text-muted);
+    display:block;
+  }
+  .social-row .handle{
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--text-main);
+  }
+
+  .footer-paw{
+    margin-top:22px;
+    color:var(--divider);
+    font-size:16px;
+    letter-spacing:10px;
+  }
+
+  input[type=file]{ display:none; }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="tag-ring"></div>
+
+    <label class="photo-wrap" title="Haz clic para subir tu foto">
+      <div class="photo-inner">
+        <img id="profilePhoto" src="https://placehold.co/300x300/241a33/a855f7?text=%F0%9F%A6%88" alt="Foto de perfil">
+      </div>
+      <input type="file" id="photoInput" accept="image/*">
+    </label>
+    <div class="photo-hint">toca la foto para cambiarla</div>
+
+    <h1 class="name">Loyal</h1>
+    <div class="subline">Perro-Tiburón <span class="dot">•</span> 21 <span class="dot">•</span> She/He</div>
+    <div class="subline">España</div>
+
+    <div class="divider">≈≈≈</div>
+
+    <p class="bio">"Una mascota leal, a la que le encantan los pat pats y el entrenamiento por clicker" 🐾</p>
+
+    <div class="divider">≈≈≈</div>
+
+    <div class="badges">
+      <span class="badge">🎮 Videojuegos</span>
+      <span class="badge">🎯 Airsoft</span>
+      <span class="badge">🔐 Ciberseguridad</span>
+    </div>
+
+    <div class="divider">≈≈≈</div>
+
+    <div class="socials">
+      <div class="social-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.8"><path d="M8 12a4 4 0 0 1 8 0v3a4 4 0 0 1-8 0z"/><path d="M9 9c-1.5 0-3 1-3.5 2.5M15 9c1.5 0 3 1 3.5 2.5"/><circle cx="10" cy="13" r="0.6" fill="#a855f7"/><circle cx="14" cy="13" r="0.6" fill="#a855f7"/></svg>
+        <div>
+          <span class="platform">Discord</span>
+          <span class="handle">LoyalCondya</span>
+        </div>
+      </div>
+      <div class="social-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6fb0" stroke-width="1.8"><rect x="3" y="7" width="14" height="11" rx="2"/><path d="M17 10l4-2v10l-4-2"/></svg>
+        <div>
+          <span class="platform">VRChat</span>
+          <span class="handle">Ahinoa_05</span>
+        </div>
+      </div>
+      <div class="social-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="#a855f7"/></svg>
+        <div>
+          <span class="platform">Instagram</span>
+          <span class="handle">p_granad0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-paw">🐾 🐾 🐾</div>
+  </div>
+
+<script>
+  const input = document.getElementById('photoInput');
+  const img = document.getElementById('profilePhoto');
+  input.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => { img.src = ev.target.result; };
+    reader.readAsDataURL(file);
+  });
+</script>
+
+</body>
+</html>
